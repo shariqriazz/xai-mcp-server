@@ -1,0 +1,60 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - xaiApiKey
+    properties:
+      xaiApiKey:
+        type: string
+        description: xAI API Key
+      xaiModelId:
+        type: string
+        default: grok-3-mini
+        description: xAI Model ID
+      xaiBaseUrl:
+        type: string
+        default: https://api.x.ai/v1
+        description: xAI API Base URL
+      aiTemperature:
+        type: number
+        default: 0
+        description: Temperature for model
+      aiUseStreaming:
+        type: boolean
+        default: true
+        description: Whether to use streaming
+      aiMaxOutputTokens:
+        type: number
+        default: 14661
+        description: Max output tokens
+      aiMaxRetries:
+        type: number
+        default: 3
+        description: Max retry attempts
+      aiRetryDelayMs:
+        type: number
+        default: 1000
+        description: Max retry delay in milliseconds
+      aiReasoningEffort:
+        type: string
+        enum: ["low", "high", ""]
+        default: "low"
+        description: Optional: "low" or "high" for reasoning models. Leave empty for no reasoning.
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'node', args: ['dist/index.js'], env: { ...(config.xaiApiKey && { XAI_API_KEY: config.xaiApiKey }), ...(config.xaiModelId && { XAI_MODEL_ID: config.xaiModelId }), ...(config.xaiBaseUrl && { XAI_BASE_URL: config.xaiBaseUrl }), ...(config.aiTemperature !== undefined && { AI_TEMPERATURE: config.aiTemperature.toString() }), ...(config.aiUseStreaming !== undefined && { AI_USE_STREAMING: config.aiUseStreaming.toString() }), ...(config.aiMaxOutputTokens && { AI_MAX_OUTPUT_TOKENS: config.aiMaxOutputTokens.toString() }), ...(config.aiMaxRetries && { AI_MAX_RETRIES: config.aiMaxRetries.toString() }), ...(config.aiRetryDelayMs && { AI_RETRY_DELAY_MS: config.aiRetryDelayMs.toString() }), ...(config.aiReasoningEffort && { AI_REASONING_EFFORT: config.aiReasoningEffort }) } })
+  exampleConfig:
+    xaiApiKey: YOUR_XAI_API_KEY
+    xaiModelId: grok-3-mini
+    xaiBaseUrl: https://api.x.ai/v1
+    aiTemperature: 0
+    aiUseStreaming: true
+    aiMaxOutputTokens: 14661
+    aiMaxRetries: 3
+    aiRetryDelayMs: 1000
+    aiReasoningEffort: "low"

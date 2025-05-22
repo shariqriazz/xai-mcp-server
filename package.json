@@ -1,0 +1,42 @@
+{
+  "name": "xai-mcp-server",
+  "version": "0.1.0",
+  "description": "A Model Context Protocol server supporting xAI's Grok models",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "xai-mcp-server": "dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shariqriazz/xai-mcp-server.git"
+  },
+  "homepage": "https://github.com/shariqriazz/xai-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/shariqriazz/xai-mcp-server/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun run tsc && node -e \"require('fs').chmodSync('dist/index.js', '755')\"",
+    "prepare": "bun run build",
+    "watch": "bun run tsc --watch",
+    "inspector": "bunx @modelcontextprotocol/inspector build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0",
+    "diff": "^7.0.0",
+    "dotenv": "^16.5.0",
+    "minimatch": "^10.0.1",
+    "openai": "^4.0.0",
+    "zod": "^3.24.3",
+    "zod-to-json-schema": "^3.24.5"
+  },
+  "devDependencies": {
+    "@types/diff": "^7.0.2",
+    "@types/minimatch": "^5.1.2",
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}
