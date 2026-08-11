@@ -7,6 +7,12 @@ This project implements a Model Context Protocol (MCP) server that provides a co
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@shariqriazz/xai-mcp-server/badge" alt="xAI Server MCP server" />
 </a>
 
+## Security boundary
+
+This server includes filesystem write and terminal-execution tools alongside Grok and Live Search tools. Run it with a dedicated low-privilege identity, restrict filesystem and network access, and require explicit review for consequential tools. Model output and search-grounded output still require verification before they drive a real action.
+
+For the implementation tradeoffs this project exposed alongside six other public MCP codebases, see [What building seven MCP servers taught me about production MCP](https://www.orchestriai.com/blog/lessons-building-seven-mcp-servers).
+
 ## Features
 
 *   Provides access to xAI's Grok models via numerous MCP tools.
